@@ -1,4 +1,17 @@
 
+-- DDL(Data defination Language)
+-- 1.create
+-- 2.alter
+-- 3.drop
+-- 4.truncate
+-- 5.insert
+
+-- DML(Data Manipulation language)
+-- 1.insert
+-- 2.update 
+-- 3.delete
+-- 4.select
+
 -- --CREATING A 5 TABLES WITH 10 COLUMNS
 create table hospital_info(
      hospital_id int,
@@ -70,7 +83,7 @@ create table appointment_info(
      test_charges decimal(10,2),
      doctor_fee decimal(10,2),
      discount decimal(10,2),
-     tax decimal(10,2),
+     tax decimal(10,2),bankbankbank
      total_amount decimal(10,2)
     );
     
@@ -179,4 +192,51 @@ value(1, 'DR.Ravi', 'Surgon', 'Male', 25, 'MBBS', 12, 200000),(2, 'DR.Ranveer', 
 
 
 select * from physician_info;
+
+
+
+-- DQL(DATA QUERY LANGUAGE) STATEMENT IN SQL
+-- 1.select
+-- 2.From
+-- 3.where
+-- 4.Having
+-- 5.or, not, and, is, in
+-- 6.group by
+-- 7.order by
+-- 8.join
+
+
+select distinct Doctor_name from physician_info;
+select * from physician_info where Specialization='Surgon' or Specialization='Cardeologist';    
+select * from physician_info where Specialization='Surgon' or Doctor_name='DR. Ranveer'; -- accepts where one value is correct from any table here Surgon will points to DR.Ravi so prints in a console thats why OR (means ATHAVA)
+select * from physician_info where Specialization='Surgon' and Specialization='Cardeologist';  -- expects surgon and cardeologist from the same row or same doctor so doesn't print any values
+select * from physician_info where Doctor_name in('DR.Ravi', 'DR.Dinesh');
+select * from physician_info where Doctor_name not in('DR.Ravi', 'DR.Dinesh');
+select * from physician_info where phone_number is null;
+select * from physician_info where phone_number is not null;
+select * from physician_info where age between 20 and 23;
+select * from physician_info where age not between 20 and 23;
+select * from physician_info where age >25;
+
+-- _ --> underscore will skip and % will ignore the chracter using like keyword
+select * from physician_info where experience like '_2%';  -- skip first chracter and print 2 chracter after ignore everything
+select * from physician_info where Doctor_name like '%i%';  -- prints where ever i is present
+select * from physician_info where qualification like 'B%'; -- prints the value where first character is B after ignore everything
+select * from physician_info where experience like '_1%';  -- skip first number prints second number 1 after and after ignore everything
+
+-- Aggregate function
+select count(*) from physician_info; 
+select sum(salary) from physician_info;
+select min(age) from physician_info;
+select max(age) from physician_info;
+select avg(salary) from physician_info;
+
+
+-- group by and having
+select qualification, sum(salary) from physician_info  group by qualification     having sum(salary)>500000;
+
+-- order by
+select * from physician_info order by age desc;
+select * from physician_info order by Doctor_name;   -- prints in a ascending order normally all the prints in ascending order by default
+select * from physician_info order by Doctor_name DESC;
 
