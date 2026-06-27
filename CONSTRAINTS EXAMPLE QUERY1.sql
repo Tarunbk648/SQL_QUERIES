@@ -36,4 +36,33 @@ select * from waste_collections_info order by collector_name;
 select * from waste_collections_info order by citizen_id desc;
 
 
+-- 27/06/2026
+-- JOINS IN SQL
+select * from citizens_info cross join waste_collections_info;    -- multiply each row of citizen_info into every other rows from waste_collection_info
+
+select cn.citizen_id, cn.citizen_name, wn.citizen_id waste_collection_id, wn.collector_name waste_collector_name from citizens_info cn inner join waste_collections_info wn where cn.citizen_id=wn.citizen_id;   -- inner join helps to join the similar column name based on the condition  
+
+select  c.citizen_id, w.citizen_id from citizens_info c left join waste_collections_info w on c.citizen_id=w.citizen_id;  -- prints all the left rows and matching rows from the right using on keyword
+
+select  c.citizen_id, w.citizen_id from citizens_info c right join waste_collections_info w on c.citizen_id=w.citizen_id;   -- prints all the right rows and matching rows from the left using on keyword
+
+select  c.citizen_id, w.citizen_id from citizens_info c left join waste_collections_info w on c.citizen_id=w.citizen_id union
+select  c.citizen_id, w.citizen_id from citizens_info c right join waste_collections_info w on c.citizen_id=w.citizen_id; --  --prints both the left and right outer joins  [Its a full outer joins]
+
+select * from citizens_info  join waste_collections_info;  -- same as cross join 
+
+
+-- --SUBQUERY 
+select citizen_name, email from citizens_info where citizen_id in(
+  select citizen_id from waste_collections_info );   --  based on the inner query waste_collection_info  citizen_id compare with citizen_id of citizen_info and display the citizen_name and email 
+                                                     -- Resultant of inner query (waste_collection_info )will be the condition for citizen_info  (outer query)
+select ward_number from citizens_info;                                                
+                                                     
+select min(ward_number) from citizens_info where ward_number> (select min(Ward_number) from citizens_info where ward_number>(select min(Ward_number) from citizens_info where ward_number>(select min(Ward_number) from citizens_info where ward_number>(select min(Ward_number) from citizens_info where ward_number>(select min(Ward_number) from citizens_info)))));
+  
+  select * from citizens_info order by ward_number limit 1 offset 4;  --  limit--> how much rows to print 
+																	                                    	-- offest--> how much lines rows to skip
+  
+
+ 
 
